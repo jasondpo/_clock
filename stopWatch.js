@@ -63,7 +63,22 @@ $(function(){
     	event.stopPropagation();
      });
 
-})	
+})
+v=0
+$(function(){
+	$('#pause').click(function(event){
+		v++
+		if(v==1){	
+	    	clearTimeout(t);
+	    	$("#pause").html("resume");
+		}
+		if(v==2){	
+    		timer();
+    		$("#pause").html("pause");
+			v=0;
+		}
+    });	
+})		
 ///////////////////////////////////////////////////////////////////////
 	
 	// Array of day names
@@ -174,7 +189,7 @@ function getTime(){
 
 
 
-///////// ANGULAR Starts here ////////////////////////////////////////////////////////////
+///////// ANGULAR ////////////////////////////////////////////////////////////
 
 angular.module("stopWatchApp", [])
 
@@ -187,41 +202,30 @@ angular.module("stopWatchApp", [])
     $scope.theChnge = function(){
 	  var e = document.getElementById("myActivity");
 	  var selectedAct = e.options[e.selectedIndex].value;
-	  //selectedAct=$('#myActivity select').value;
       $scope.activity = selectedAct;
     }; 
     
 });
 
-//////////////////////////////
-
-
-    function openDrawer(){
-	    var b = document.getElementById("logDrawer");
-	    var l = document.getElementById("log");
-
-	    if(b.style.height == "40px" || b.style.height !="100%"){
-			b.style.height="100%";
-			l.style.backgroundPosition="76px -41px";
-	    }else{
-		   b.style.height="40px";
-		   l.style.backgroundPosition="76px 0px";
-		   document.getElementById('notesWrapper').style.display="none";
-		   deselectRecord();			
-	    }
-    }
-    
-
-////////////////////////////// Hello
+////////////////////////////// 
 
 var theActivity = [
+
     '<option value="Jogging">Jogging</option>',
     '<option value="Baby sitting">Baby sitting</option>',
     '<option value="Homework">Homework</option>'
+
 ];
 
 document.getElementById("myActivity").innerHTML = theActivity;
 
+/*
+function reUpload(){
+	document.getElementById("myActivity").innerHTML = theActivity;
+}
+*/
+
+/*
 function updateList(){
 	var act = document.getElementById("activityInput").value;
 	
@@ -242,5 +246,32 @@ function updateList(){
 	sel.prepend(opt); 
 	$('select option:first-child').attr("selected", "selected");
 }
+*/
+
+function updateList(){
+ 	var b = document.getElementById("activityInput").value;
+	//var newSubject ="'<option value='school'>school</option>";
+	var newSubject ='<option value="'+b+'">'+b+'</option>';
+	theActivity.unshift(newSubject);
+	//alert(theActivity);
+	document.getElementById("myActivity").innerHTML = theActivity;
+	reUpload();	
+};
+//////////////////////////////
 
 
+    function openDrawer(){
+	    var b = document.getElementById("logDrawer");
+	    var l = document.getElementById("log");
+
+	    if(b.style.height == "40px" || b.style.height !="100%"){
+			b.style.height="100%";
+			l.style.backgroundPosition="76px -41px";
+	    }else{
+		   b.style.height="40px";
+		   l.style.backgroundPosition="76px 0px";
+		   document.getElementById('notesWrapper').style.display="none";
+		   deselectRecord();			
+	    }
+    }
+    

@@ -1,0 +1,55 @@
+<title>Local storage test</title>
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="result"></div>
+<select id="myActivity"></select>
+<br>
+<br>
+<input type="text" id="activityInput" ><button id="upload" onclick="updateList()">update</button><br>
+
+<script>
+	
+if (typeof(Storage) !== "undefined") {
+    
+    city = ['jogging', 'Babysitting', 'Homework','Cooking', 'Cleaning'];
+	var city_str = JSON.stringify(city);
+	localStorage.setItem("locals", JSON.stringify(city_str));
+	///////////////
+    var storedNames = JSON.parse(localStorage.getItem("locals"));
+    storedNames=storedNames.slice(1, -1);
+    storedNames=storedNames.replace(/"/g, "");
+    g = storedNames.split(",");
+	
+    //document.getElementById("result").innerHTML = '<option value="'+g[1]+'">'+g[1]+'</option>'; 
+    
+	    i=0
+	var text = "";
+	while (i < g.length) {
+	     text += '<option value="'+g[i]+'">'+g[i]+'</option>';       
+	    i++;
+	}
+document.getElementById("myActivity").innerHTML = text;   
+
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+
+function updateList(){
+
+ 	var b = document.getElementById("activityInput").value;
+	var newSubject ='<option value="'+b+'">'+b+'</option>';
+	city_str2=newSubject+text;
+	//alert(city)
+	document.getElementById("myActivity").innerHTML = newSubject+text;
+
+	
+	
+	localStorage.setItem("locals", city_str2);
+
+};
+   </script>
+
+</body>
+</html>
