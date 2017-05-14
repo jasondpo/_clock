@@ -1,13 +1,29 @@
 <title>Local storage test</title>
 <!DOCTYPE html>
+
+<!--
+	STEPS
+	1. Gather textContent from <options> within <select> items: check
+	2. Append new text to begining of string: Check
+	3. Save string to local storage: Check
+	4. Add to <select> on page refresh: 
+-->
+
+
+
 <html>
+	<head>
+		
+		<!-- jQuery Library-->
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	</head>
 <body>
 
-<div id="result"></div>
+<div id="result">Keith jason james</div>
 <select id="myActivity"></select>
 <br>
 <br>
-<input type="text" id="activityInput" ><button id="upload" onclick="updateList()">update</button><br>
+<input type="text" id="activityInput">  <button id="upload" onclick="addText()">update</button><br>
 
 <script>
 	
@@ -21,9 +37,7 @@ if (typeof(Storage) !== "undefined") {
     storedNames=storedNames.slice(1, -1);
     storedNames=storedNames.replace(/"/g, "");
     g = storedNames.split(",");
-	
-    //document.getElementById("result").innerHTML = '<option value="'+g[1]+'">'+g[1]+'</option>'; 
-    
+	    
 	    i=0
 	var text = "";
 	while (i < g.length) {
@@ -41,15 +55,41 @@ function updateList(){
  	var b = document.getElementById("activityInput").value;
 	var newSubject ='<option value="'+b+'">'+b+'</option>';
 	city_str2=newSubject+text;
-	//alert(city)
 	document.getElementById("myActivity").innerHTML = newSubject+text;
-
-	
-	
 	localStorage.setItem("locals", city_str2);
-
 };
-   </script>
+////////////////////////
+var x = document.getElementById("myActivity");
+var txt = "";
+var i;
+for (i = 0; i < x.length; i++) {
+    txt = txt + x.options[i].text+' ';
+} 
+//tArray=txt.split("");
+/*
+	document.getElementById("result").innerHTML = txt;   
+	thy=document.getElementById('result').textContent;
+	thy = thy.split(" ")
+	alert(thy[0]);
+*/
+function addText(){
+	textVal=document.getElementById('activityInput').value;	
+	//alert(textVal+" "+txt);
+	textVal=textVal+" "+txt;
+	localStorage.setItem("myStorage", textVal);
+	///////
+	 var storedText = localStorage.getItem("myStorage");
+	 k=storedText.split(" ");
+	 alert(k[1]);
+	 //document.getElementById("result").innerHTML =storedText;
+    //////
+    
+}
+
+
+
+  
+</script>
 
 </body>
 </html>
