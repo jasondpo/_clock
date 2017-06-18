@@ -10,7 +10,6 @@
 -->
 
 
-
 <html>
 	<head>
 		
@@ -19,7 +18,6 @@
 	</head>
 <body>
 
-<div id="result">Keith jason james</div>
 <select id="myActivity"></select>
 <br>
 <br>
@@ -29,7 +27,7 @@
 	
 if (typeof(Storage) !== "undefined") {
     
-    city = ['jogging', 'Babysitting', 'Homework','Cooking', 'Cleaning'];
+    city = ['Jogging', 'Babysitting', 'Homework','Cooking', 'Cleaning'];
 	var city_str = JSON.stringify(city);
 	localStorage.setItem("locals", JSON.stringify(city_str));
 	///////////////
@@ -49,17 +47,20 @@ document.getElementById("myActivity").innerHTML = text;
 } else {
     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
+/*
 
 function updateList(){
 
  	var b = document.getElementById("activityInput").value;
 	var newSubject ='<option value="'+b+'">'+b+'</option>';
-	city_str2=newSubject+text;
+	
+	city_str2=newSubject+text; 													
 	document.getElementById("myActivity").innerHTML = newSubject+text;
 	localStorage.setItem("locals", city_str2);
 };
+*/
 ////////////////////////
-var x = document.getElementById("myActivity");
+var x = document.getElementById("myActivity"); // this is somehow grabbing each option
 var txt = "";
 var i;
 for (i = 0; i < x.length; i++) {
@@ -74,16 +75,22 @@ for (i = 0; i < x.length; i++) {
 */
 function addText(){
 	textVal=document.getElementById('activityInput').value;	
-	//alert(textVal+" "+txt);
 	textVal=textVal+" "+txt;
+
 	localStorage.setItem("myStorage", textVal);
 	///////
 	 var storedText = localStorage.getItem("myStorage");
 	 k=storedText.split(" ");
-	 alert(k[1]);
-	 //document.getElementById("result").innerHTML =storedText;
-    //////
-    
+
+	    u=0
+	var text = "";
+	while (u < k.length-1) {
+	     text += '<option value="'+k[u]+'">'+k[u]+'</option>';       
+	    u++;
+	}
+	alert(text)
+document.getElementById("myActivity").innerHTML = text;
+    txt=text; //// This line partially works as expected.
 }
 
 

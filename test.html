@@ -1,0 +1,51 @@
+<title>Local storage test</title>
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="result"></div>
+<select id="myActivity" onchange="testFunc()"></select>
+<br>
+<br>
+<input type="text" id="activityInput" ><button id="upload" onclick="updateStorage()">update</button><br>
+<button id="upload" onclick="testFunc()">set</button>
+
+
+
+<script>
+function updateStorage(){
+	var b = document.getElementById("activityInput").value;	
+    var city = ['jogging', 'Babysitting', 'Homework','Cooking', 'Cleaning'];
+    city.unshift(b);
+	var city_str = JSON.stringify(city);
+	localStorage.setItem("locals", JSON.stringify(city_str));
+}	
+
+if (typeof(Storage) !== "undefined") {
+	///////////////
+    var storedNames = JSON.parse(localStorage.getItem("locals"));
+    storedNames=storedNames.slice(1, -1);
+    storedNames=storedNames.replace(/"/g, "");
+    g = storedNames.split(",");
+	
+    //document.getElementById("result").innerHTML = '<option value="'+g[1]+'">'+g[1]+'</option>'; 
+    
+	    i=0
+	var text = "";
+	while (i < g.length) {
+	     text += '<option value="'+g[i]+'">'+g[i]+'</option>';       
+	    i++;
+	}
+document.getElementById("myActivity").innerHTML = text;   
+
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+function testFunc(){
+	location.reload(); 	
+}
+
+   </script>
+
+</body>
+</html>

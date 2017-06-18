@@ -219,34 +219,7 @@ var theActivity = [
 
 document.getElementById("myActivity").innerHTML = theActivity;
 
-/*
-function reUpload(){
-	document.getElementById("myActivity").innerHTML = theActivity;
-}
-*/
 
-/*
-function updateList(){
-	var act = document.getElementById("activityInput").value;
-	
-	
-	// get reference to select element
-	var sel = document.getElementById('myActivity');
-	
-	// create new option element
-	var opt = document.createElement('option');
-	
-	// create text node to add to option element (opt)
-	opt.appendChild( document.createTextNode(act) );
-	
-	// set value property of opt
-	opt.value = act; 
-	
-	// add opt to end of select box (sel)
-	sel.prepend(opt); 
-	$('select option:first-child').attr("selected", "selected");
-}
-*/
 
 function updateList(){
  	var b = document.getElementById("activityInput").value;

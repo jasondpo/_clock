@@ -1,0 +1,77 @@
+<title>Local storage test</title>
+<!DOCTYPE html>
+
+<!--
+	STEPS
+	1. Gather textContent from <options> within <select> items: check
+	2. Append new text to begining of string: Check
+	3. Save string to local storage: Check
+	4. Add to <select> on page refresh: 
+-->
+
+
+<html>
+	<head>
+		
+		<!-- jQuery Library-->
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	</head>
+<body>
+
+<select id="myActivity"></select>
+<br>
+<br>
+<input type="text" id="activityInput">  <button id="upload" onclick="addText()">update</button> <button id="clear" onclick="clearText()">Clear</button><br>
+
+<script>
+	
+var storedNames = JSON.parse(localStorage.getItem("locals"));
+    g = storedNames.split(" ");
+	    i=0
+	var text = "";
+	while (i < g.length-1) {
+	     text += '<option value="'+g[i]+'">'+g[i]+'</option>';       
+	    i++;
+	}
+document.getElementById("myActivity").innerHTML = text;   
+
+
+////////////////////////
+
+var x = document.getElementById("myActivity"); // this is somehow grabbing each option
+var txt = "";
+var a;
+for (a = 0; a < x.length; a++) {
+    txt = txt + x.options[a].text+' ';
+} 
+function addText(){
+	textVal=document.getElementById('activityInput').value;	
+	textVal=textVal+" "+txt;
+	localStorage.setItem("locals", JSON.stringify(textVal));
+
+	///////
+	 var storedText = localStorage.getItem("myStorage");
+	 k=storedText.split(" ");
+
+	    u=0
+	var text = "";
+	while (u < k.length) {
+	     text += '<option value="'+k[u]+'">'+k[u]+'</option>';       
+	    u++;
+	}
+ document.getElementById("myActivity").innerHTML = text;
+    txt=text; //// This line partially works as expected.
+    location.reload(); 
+}
+
+function clearText(){
+	textVal="";
+	localStorage.setItem("locals",textVal);
+    location.reload(); 
+}
+
+  
+</script>
+
+</body>
+</html>
