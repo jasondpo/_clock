@@ -55,7 +55,6 @@ document.getElementById("myActivity").innerHTML = text;
 }
 
 ////////// Add more info to local storage  //////////////
-
 var x = document.getElementById("myActivity"); // this is somehow grabbing each option
 var txt = "";
 var a;
@@ -63,23 +62,26 @@ for (a = 0; a < x.length; a++) {
     txt = txt + x.options[a].text+' ';
 } 
 function addText(){
+	location.reload(); // Not sure why the 'reload' works here, but not at end of function
+
 	textVal=document.getElementById('activityInput').value;	
 	textVal=textVal+" "+txt;
 	localStorage.setItem("locals", JSON.stringify(textVal));
 
 	///////
 	 var storedText = localStorage.getItem("myStorage");
-	 k=storedText.split(" ");
-
+	//// After this point alerts don't work 
+	 storedText=storedText.split(" ");
 	    u=0
 	var text = "";
-	while (u < k.length) {
-	     text += '<option value="'+k[u]+'">'+k[u]+'</option>';       
+	while (u < storedText.length) {
+	     text += '<option value="'+storedText[u]+'">'+storedText[u]+'</option>';       
 	    u++;
 	}
- document.getElementById("myActivity").innerHTML = text;
-    location.reload(); 
+	document.getElementById("myActivity").innerHTML = text;
 }
+
+function reloadPage(){}
 
 ////////// Clear local storage  //////////////
 
