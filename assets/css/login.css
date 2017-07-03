@@ -1,0 +1,80 @@
+body, html{
+	background-color: #4A525A;
+	overflow: hidden;
+}
+h15{
+	position: absolute;
+	z-index: 5;
+	font-size: 34px;
+	font-weight: 100;
+	margin-top: -80px;
+	margin-left: -70px;
+	color: #00AEEF;
+	letter-spacing: .8em;
+	font-family: 'Roboto', sans-serif;
+	display: block;
+	text-align: center;
+}
+h15 span{
+	font-weight: 700;
+}
+.login-wrapper{
+	position:absolute;
+	width: 400px;
+	height: 200px;
+	z-index: 3;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -100px;
+	text-align: right;
+	background-color: rgba(74, 82, 90, .8);
+	background-image: url(../images/watchlogo-bkg.png);
+	border-radius: 4px;
+	box-sizing: border-box;
+	padding-right: 74px;
+}
+.homeOverlay{
+	position: fixed;
+	top:0px;
+	left:0px;
+	right: 0px;
+	bottom: 0px;
+	background-color:rgba(44, 49, 53, 0.8);
+	z-index: 2;
+	display:block;		
+}
+.v-centered {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.slideshowContainer{
+	position: fixed;
+	background-color: #4A525A;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	bottom:0px;
+	top:0px;
+	overflow: hidden;
+}
+.slideshowContainer img{
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+}
+input, button{
+	border: 0px;
+	height: 18px;
+	padding-left: 6px;
+	background-color: #fff;
+}
+.signupBtn{
+	color: #fff;
+	background-color: #00AEEF;
+	cursor: pointer;
+}

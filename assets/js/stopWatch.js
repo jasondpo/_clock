@@ -1,3 +1,18 @@
+
+
+
+//////////////////////////////////
+$(function(){	
+	$(".logoutBtn").click(function(){
+	    $(".overlay").fadeIn('fast');
+	});
+	$(".overlay").click(function(){
+	    $(".overlay").fadeOut('fast');
+	});
+
+})
+
+//////////////////////////////
 	var h1 = document.getElementsByTagName('textarea')[0],
 	    start = document.getElementById('start'),
 	    stop = document.getElementById('stop'),
@@ -208,28 +223,58 @@ angular.module("stopWatchApp", [])
 });
 
 ////////////////////////////// 
+if (typeof(Storage) !== "undefined") {
+	
+	var storedNames = JSON.parse(localStorage.getItem("locals"));
+    g = storedNames.split(" ");
+    itemsLength=g.length-1;
+	    i=0
+	var text = "";
+	while (i < g.length-1) {
+	     text += '<option value="'+g[i]+'">'+g[i]+'</option>';       
+	    i++;
+	}
+document.getElementById("myActivity").innerHTML = text;   
+} else {
+    alert("Sorry, your browser does not support Web Storage...");
+}
 
-var theActivity = [
-
-    '<option value="Jogging">Jogging</option>',
-    '<option value="Baby sitting">Baby sitting</option>',
-    '<option value="Homework">Homework</option>'
-
-];
-
-document.getElementById("myActivity").innerHTML = theActivity;
-
-
-
+////////// Add more info to local storage  //////////////
+var x = document.getElementById("myActivity"); // this is somehow grabbing each option
+var txt = "";
+var a;
+for (a = 0; a < x.length; a++) {
+    txt = txt + x.options[a].text+' ';
+} 
 function updateList(){
- 	var b = document.getElementById("activityInput").value;
-	//var newSubject ="'<option value='school'>school</option>";
-	var newSubject ='<option value="'+b+'">'+b+'</option>';
-	theActivity.unshift(newSubject);
-	//alert(theActivity);
-	document.getElementById("myActivity").innerHTML = theActivity;
-	reUpload();	
-};
+	location.reload(); // Not sure why the 'reload' works here, but not at end of function
+
+	textVal=document.getElementById('activityInput').value;	
+	textVal=textVal+" "+txt;
+	localStorage.setItem("locals", JSON.stringify(textVal));
+
+	///////
+	 var storedText = localStorage.getItem("myStorage");
+	//// After this point alerts don't work 
+	 storedText=storedText.split(" ");
+	    u=0
+	var text = "";
+	while (u < storedText.length) {
+	     text += '<option value="'+storedText[u]+'">'+storedText[u]+'</option>';       
+	    u++;
+	}
+	document.getElementById("myActivity").innerHTML = text;
+}
+
+function reloadPage(){}
+
+////////// Clear local storage  //////////////
+
+function clearText(){
+	textVal="";
+	localStorage.setItem("locals",textVal);
+    location.reload(); 
+}
 //////////////////////////////
 
 
@@ -247,4 +292,7 @@ function updateList(){
 		   deselectRecord();			
 	    }
     }
+ setTimeout(function(){
+	 document.getElementById("myActivity").selectedIndex = "1";}, 500)   
+    
     
