@@ -1,5 +1,5 @@
 <?php session_start();?>
-<?php 'functions.php';?>
+<?php include 'functions.php';?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -25,7 +25,38 @@
 	</head>
 
 	
-	<body nload="form1.reset();" ng-app="stopWatchApp" ng-controller="mainCtrl">
+	<body ng-app="stopWatchApp" ng-controller="mainCtrl">
+		
+	<div class="actualTime">	
+		<input id="startTime">
+		<br/>
+		<br/>
+		<input id="endTime">
+		<br/>
+		<br/>
+		<input id="diff" value="">
+	</div>
+	
+	<div class="submitData-wrapper">
+		<form method="post" name="logForm" id="logForm" action="log.php" autocomplete='off' target="logframe">
+											
+			<input type="text" id="logId" name="logId" value="<?php echo $_SESSION["userId"]; ?>"/>
+			
+			<input type="text" id="logActivity" name="logActivity" value="logActivity"/>
+		
+			<input type="text" id="logTimelapse" name="logTimelapse" value="logTimelapse"/>
+			
+			<input type="text" id="logDate" name="logDate" value="logDate"/>
+		
+			<input type="text" id="logNotes" name="logNotes" value="logNotes"/>
+			
+			<input type="text" id="logTimestop" name="logTimestop" value="logTimestop"/>
+			<br/>
+			<input type="submit" id="submitData" name="submitData" value="submit">  <!-- the btn -->
+						
+		</form> 
+	</div>
+		
 	<?php 	
 		if(isset($_POST['destroySession'])){  /// Place destroy session inside header.php. If that doesn't work, place on top of php code like this example.  
 			session_unset();
@@ -70,21 +101,22 @@
 	
 	<div class="wrapper" >
 		
-		<input type="text" id="activityInput" ng-model="activity"/> <button id="upload" onclick="updateList()">Add</button>&nbsp;<button id="upload" onclick="clearText()">Clear</button>
+		<div class="goToActPage"></div>
 
 		<br>
 		<br>
 		
 		<div class="selecWrappert">
-			<label id="activity">Activity</label>
-		        <select name="myActivity" id="myActivity" onchange="clearTime();" ng-change="theChnge()" onmouseover="openActivityList()" ng-model="myValue"></select>
+			
+		        <select name="myActivity" id="myActivity" onchange="clearTime();" ng-change="theChnge()" onmouseover="openActivityList()" ng-model="myValue"> 
+			       <?php echo displayList(); ?> 
+		        </select>
 		        		</div>
 						
 		<br>
 		<br>
 		<form>
 			<textarea id="theTime">00:00:00:00</textarea>
-			<div id="theDate"></div>
 			<br>
 			<br>
 		</form>
@@ -92,11 +124,11 @@
 	</div>	<!-- Wrapper -->
 	
 	
-	<div class="wrapperControls">		
-		<button id="start" class="buttonClass">start</button><br/>
-		<button id="stop" class="buttonClass">stop</button><br/>
-		<button id="clear" ng-click="clearActivity()" class="buttonClassSecondary">clear</button>
-		<button id="pause" class="buttonClassSecondary">pause</button>
+	<div class="wrapperControls">
+		<div id="theDate"></div>
+		<button id="clear" ng-click="clearActivity()" class="buttonClassSecondary">clear</button>		
+		<button id="start" class="buttonClass">start</button>
+		<button id="stop" class="buttonClass">stop</button>
 	</div>	
 	
 		<div id="theActivity" class="bkgBillboard">{{activity}}</div>
@@ -109,15 +141,8 @@
 				<h10 id="log">Logs</h10>
 			</div>
 			
-				<div id="timeLog" class="clearfix">
-					<div id="timeLogColumn"></div>
-						<div id="notesWrapper">
-						<textarea id="notes"  onblur="if(this.value==''){ this.value='Write a note...'}" onfocus="if(this.value=='Write a note...'){ this.value=''}">Select from left</textarea>
-						<br>
-						<button id="saveBtn" class="saveBtn" onclick="saveNote()">Save</button>
-					</div>
-				</div>
-				
+			<iframe name="logframe" class="logframe" src="log.php"></iframe>  
+	
 		</div>
 	
 		<!-- Custom jQuery -->

@@ -22,9 +22,7 @@
 				window.location.href = "register.php";
 			});
 		})
-		
-		//NOTE: Use "img" tags in targeted div
-		$(function(){
+				$(function(){
 			$('.slideshowContainer img:gt(0)').hide();
 			setInterval(function(){$('.slideshowContainer :first-child').fadeOut('slow').next('img').fadeIn('slow').end().appendTo('.slideshowContainer');}, 12000);
 		});
@@ -37,6 +35,7 @@
 		
 		<div class="login-wrapper">
 			<h15><span>Record</span>Breaker</h15>
+			<h16>Activity Time Tracker</h16>
 			<div class="v-centered">
 				<form method="post" autocomplete='off' action="index.php">
 												

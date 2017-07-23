@@ -15,6 +15,12 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 	</head>
+	<style>
+		body, html{
+			background-color: #393F45;
+		}
+		
+	</style>
 
 	<script>
 		$(function(){
@@ -46,7 +52,7 @@
 					<input type="text" id="confirmpassword" name="confirmpassword" value="Confirm Password" onblur="if(this.value==''){ this.value='Confirm Password'; this.type='text'}" onfocus="if(this.value=='Confirm Password'){ this.value=''; this.type='password';}"/>
 					<br>
 					<br>
-					<input type="submit" class="button" name="registerBtn" value="Register"> &nbsp;&nbsp; <button type="button" class="backBtn">Back</button>	
+					<input type="submit" class="registerBtn" name="registerBtn" value="Register"> &nbsp;&nbsp; <button type="button" class="backBtn">Back</button>	
 								
 				</form> 
 			</div>	

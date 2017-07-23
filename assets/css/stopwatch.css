@@ -66,8 +66,44 @@
 			font-weight: 200;
 			cursor: pointer;
 		}
+		h15{
+			font-size: 12 !important;
+		}
 		
 /* 		Global ENDS */
+		iframe {
+			position: absolute;
+			border:0px; 
+			top:40px;
+		}
+		.logframe{
+			width: 98%;
+			height: 100%;
+		}
+		
+		.submitData-wrapper{
+			width: 150px;
+			height: 150px;
+			background-color: #fff;
+			position: absolute;
+			z-index: 5;
+			right: 0px;
+			top:100px;
+			display: none;
+		}
+		.actualTime{
+			position: absolute;
+			top:90px;
+			left: 20px;
+			z-index:2;
+			width: 40px;
+			height: 140px;
+		}
+		.actualTime input{
+			background-color:rgba(0,0,0,0);
+			color: #fff;
+			font-size: 12px;
+		}
 		.overlay{
 			position: fixed;
 			top:0px;
@@ -106,6 +142,7 @@
 
 		#theTime{
 			border: 0px;
+			margin-top: 100px;
 			border: none;
 			height: 85px;
 			background-color: rgba(0,0,0, 0);
@@ -131,16 +168,17 @@
 			z-index: 3;
 			width: 355px;
 			height: 300px;
-			margin: 40px auto 0px;
+			margin: 110px auto 0px;
 			text-align: center;
 		}
 		.wrapperControls{
 			position: absolute;
-			margin-left: -175px;
+			text-align: center;
+			margin-left: -253px;
 			left:50%;
-			bottom:40%;
+			top:380px;;
 			z-index: 3;
-			width: 355px;
+			width: 506px;
 			height: 230px;
 			z-index: 4;		
 		}
@@ -149,7 +187,8 @@
 			color:#B3BAC0;
 			font-family: 'Roboto', sans-serif;
 			font-size: 20px;
-			width: 355px;
+			width: 100%;
+			margin-top: 50px;
 			text-align: center;
 			text-transform: uppercase;
 		}
@@ -163,23 +202,23 @@
 		#activityInput{
 			height: 22px;
 			padding: none;	
-			padding: 0px;
+			padding: 0px 0px 0px 6px;
 			box-sizing: border-box;					
 		}
 		.buttonClass{
 			border: 0px;
 			border: none;
-			width: 354px;
+			width: 320px;
 			position: absolute;
 			top:60%;
-			left: 50%;
-			margin-left: -177px;
+			right: 0;
 			height: 68px;
 			margin-bottom: 10px;
 			cursor: pointer;
 			border-radius: 6px;
 			font-size: 22px;
 			font-family: 'Roboto', sans-serif;
+			letter-spacing: .02em;
 			font-weight: 400;
 			color:#fff;
 			text-transform: uppercase;
@@ -190,16 +229,18 @@
 			width: 170px;
 			height: 68px;
 			position: absolute;
-			top:95%;
-			left: 50%;
+			top:60%;
+			left: 0;
 			margin-bottom: 10px;
 			cursor: pointer;
 			border-radius: 6px;
 			font-size: 18px;
 			font-family: 'Roboto', sans-serif;
-			font-weight: 400;
+			font-weight: 300;
+			letter-spacing: .05em;
 			color: #fff;
-			background-color:rgba(255, 255, 255, .4);
+			text-transform: uppercase;
+			background-color:rgba(255, 255, 255, .2);
 		}
 		#timeLog{
 			font-family: 'Roboto', sans-serif;
@@ -230,15 +271,16 @@
 			left: 0px;
 			right: 0px;
 			top:230px;
-			height: 200px;
+			height: 80px;
 			color:rgba(104, 117, 130, 0.8);
 			text-align: center;
-			font-family: 'Roboto Condensed', sans-serif;;
-			font-size: 200px;
+			font-family: 'Roboto', sans-serif;
+			font-size: 64px;
 			text-transform: uppercase;
 			overflow: hidden;
 		}
 		.record{
+			position: relative;
 			width: 200px;
 			cursor: pointer;
 			padding: 14px;
@@ -246,8 +288,8 @@
 			float: left;
 			border-bottom: 1px solid #DFDFDF;			
 		}
-		.record:hover{
-			background-color:rgba(245, 245, 245, 0.8);			
+		.record:hover .deleteBtn{
+			display: block;
 		}
 		.recordCheck{
 			background-image: url(../images/greenDot.png);	
@@ -257,6 +299,7 @@
 
 		.logDrawer{
 			position: fixed;
+			overflow:hidden;
 			z-index: 4;
 			left:0px;
 			right:0px;
@@ -304,7 +347,7 @@
 			width: 260px;
 			height: 340px;
 			float: right;
-			display: none;
+			display: block;
 		}
 
 		.drawerBtn{
@@ -345,5 +388,51 @@
 		.selecWrappert{
 			display: inline-block;
 		}
-		
+		.goToActPage{
+			position: relative;
+			display: block;
+			margin: 0px auto;
+			width: 34px;
+			height: 34px;
+			background-color: #00AEEF;
+			border-radius: 100%;
+			cursor: pointer;
+			background-image: url(../images/plusBtn.png);
+			background-repeat: no-repeat;
+			background-position: center center;
+			transition: background-color .15s linear;	
+		}
+		.goToActPage:hover{
+			background-color: #83CE5B;			
+		}
 
+/* Log page */
+		.deleteBtn{
+			position: absolute;
+			width: 18px;
+			height: 18px;
+			background-color: #CCC;
+			border-radius: 20px;
+			top:4px;
+			right: 4px;
+			cursor: pointer;
+			display: none;
+		}
+		.deleteBtn:hover{
+			background-color: #FF3791;		
+		}
+		#deleteForm, #saveNote{
+			display: none;
+		}
+		.noteStorageWrapper{
+			position: absolute;
+			top:0px;
+			z-index: 5;
+			width: 200px;
+			height: 400px;
+			background-color: #f90;
+			display: none;
+		}
+		.noteBox{
+			clear: both;
+		}

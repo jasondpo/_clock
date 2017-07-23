@@ -7,7 +7,7 @@ h15{
 	z-index: 5;
 	font-size: 34px;
 	font-weight: 100;
-	margin-top: -80px;
+	margin-top: -100px;
 	margin-left: -70px;
 	color: #00AEEF;
 	letter-spacing: .8em;
@@ -17,6 +17,24 @@ h15{
 }
 h15 span{
 	font-weight: 700;
+	}
+h16{
+	position: absolute;
+	margin-top: -50px;
+	margin-left: 94px;
+	font-family: 'Roboto', sans-serif;
+	display: block;
+	text-align: center;
+	letter-spacing: .04em;
+	z-index: 5;
+	font-size: 18px;
+	font-weight: 100;
+	color: #00AEEF;
+	text-transform: capitalize;	
+}
+.registerBtn{
+	color: #fff;
+	background-color: #e08700;
 }
 .login-wrapper{
 	position:absolute;

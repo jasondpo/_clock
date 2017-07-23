@@ -1,6 +1,3 @@
-
-
-
 //////////////////////////////////
 $(function(){	
 	$(".logoutBtn").click(function(){
@@ -9,7 +6,27 @@ $(function(){
 	$(".overlay").click(function(){
 	    $(".overlay").fadeOut('fast');
 	});
-
+	$(".goToActPage").click(function(){
+	    window.location.href = "addActivities.php";
+	});
+	$('.deleteBtn').click(function(event){
+    	event.stopPropagation();
+    	var ans= $(this).attr("id");
+    	//alert(ans);
+    	$("#deleteLog").val(ans);
+    	$("#deleteLogBtn").click();
+	});
+	$('.record').click(function(event){
+    	var log= $(this).attr("id");
+    	var log=log.substr(log.indexOf("-") + 1);
+    	var storedNote = $("#noteBox-"+log).html();
+    	$('#notes').html(storedNote);
+		$("#saveNote").val(log);
+    });
+	$(".actBackBtn").click(function(){
+		window.location.href = "stopWatch.php";
+	});
+	
 })
 
 //////////////////////////////
@@ -22,8 +39,7 @@ $(function(){
 	
 	function add() {
 	    milliseconds++;
-	    if (milliseconds >= 60) {
-	        milliseconds = 0;
+	    if (milliseconds >= 60) {milliseconds = 0;
 	        seconds++;
 	        if (seconds >= 60) {
 	            seconds = 0;
@@ -41,11 +57,15 @@ $(function(){
 	}
 	
 	function timer() {
-	    t = setTimeout(add, 1);
+	    t = setTimeout(add, 10);
 	}
+	
+	
+	
 	function startMe(){
 	  clearTime();
 	  timer();
+	  clock();
 	  document.getElementById('start').style.display='none';
 	  document.getElementById('stop').style.display='block';
 	}
@@ -54,9 +74,11 @@ $(function(){
 	start.onclick = startMe;
 	
 	/* Stop button */
-	stop.onclick = function() {
+	stop.onclick = function(){
 	    clearTimeout(t);
-	    getTime();
+	    clock();
+	    getMyTime();
+	    collectData();
 	    setTimeout(openDrawer, 500);
 	    document.getElementById('stop').style.display='none';
 		document.getElementById('start').style.display='block';
@@ -71,6 +93,7 @@ $(function(){
 	clear.onclick = function() {
 	    h1.textContent = "00:00:00:00";
 	    milliseconds = 0; seconds = 0; minutes = 0; hours = 0;
+	    clearIcon();
 	}
 	
 $(function(){	
@@ -115,7 +138,7 @@ $(function(){
 function getDayTime() {
     var d = new Date();
     var h = d.getHours();
-    var m = d.getMinutes();
+    var m = addZero(d.getMinutes());
     timeDay = h > 12 ? h-12 + ":" + m+' pm' : h + ":" + m+' am' ;
 }
 
@@ -147,6 +170,10 @@ var activityNotes = [
     'Write a note...',
     'Write a note...',
     'Write a note...',
+    'Write a note...',     
+    'Write a note...',
+    'Write a note...',
+    'Write a note...',
     'Write a note...', 
     'Write a note...'     
 ];
@@ -169,7 +196,7 @@ function deselectRecord(){
 
 
 function identify(obj){	
-	getNote(obj);
+	//getNote(obj);
 	document.getElementById('notesWrapper').style.display="block";
 }
 
@@ -194,8 +221,8 @@ function checkUpdate(){
 	}
 }
 
-function getTime(){
-	var myTime = $('#theTime').html();
+function getMyTime(){
+	var myTime = $('#diff').val();
     var myAct = document.getElementById("myActivity").value;
     getDayTime();
     counter();
@@ -220,51 +247,10 @@ angular.module("stopWatchApp", [])
       $scope.activity = selectedAct;
     }; 
     
-});
-
-////////////////////////////// 
-if (typeof(Storage) !== "undefined") {
+    //$scope.activity = 'Enter Activity';
 	
-	var storedNames = JSON.parse(localStorage.getItem("locals"));
-    g = storedNames.split(" ");
-    itemsLength=g.length-1;
-	    i=0
-	var text = "";
-	while (i < g.length-1) {
-	     text += '<option value="'+g[i]+'">'+g[i]+'</option>';       
-	    i++;
-	}
-document.getElementById("myActivity").innerHTML = text;   
-} else {
-    alert("Sorry, your browser does not support Web Storage...");
-}
-
-////////// Add more info to local storage  //////////////
-var x = document.getElementById("myActivity"); // this is somehow grabbing each option
-var txt = "";
-var a;
-for (a = 0; a < x.length; a++) {
-    txt = txt + x.options[a].text+' ';
-} 
-function updateList(){
-	location.reload(); // Not sure why the 'reload' works here, but not at end of function
-
-	textVal=document.getElementById('activityInput').value;	
-	textVal=textVal+" "+txt;
-	localStorage.setItem("locals", JSON.stringify(textVal));
-
-	///////
-	 var storedText = localStorage.getItem("myStorage");
-	//// After this point alerts don't work 
-	 storedText=storedText.split(" ");
-	    u=0
-	var text = "";
-	while (u < storedText.length) {
-	     text += '<option value="'+storedText[u]+'">'+storedText[u]+'</option>';       
-	    u++;
-	}
-	document.getElementById("myActivity").innerHTML = text;
-}
+    
+});
 
 function reloadPage(){}
 
@@ -295,4 +281,94 @@ function clearText(){
  setTimeout(function(){
 	 document.getElementById("myActivity").selectedIndex = "1";}, 500)   
     
-    
+ //////////////// Time Difference START //////////////////////////
+
+
+	var clk=0;
+		
+	function clock(){
+		clk++;
+		if(clk==1){
+			document.getElementById("startTime").value=getTime();
+			document.getElementById("endTime").value="";
+			clearDiff();
+		}if(clk==2){
+			document.getElementById("endTime").value=getTime();
+			clk=0;
+			diff();
+		}
+	}
+	
+	function addZero(i) {
+	    if (i < 10) {
+	        i = "0" + i;
+	    }
+	    return i;
+	}
+	
+	function getTime(){
+		var d = new Date();
+	    var h= d.getHours();
+	    var m= addZero(d.getMinutes());
+	    var s= addZero(d.getSeconds());
+	    var ms= addZero((d.getMilliseconds()/10).toFixed(0));
+	    var startTime =h+":"+m+":"+s;
+		
+		return startTime;
+	}
+	
+	function diff(start, end) {
+		
+		var start = document.getElementById("startTime").value;
+		var end = document.getElementById("endTime").value;
+		
+	    start = start.split(":");
+	    end = end.split(":");
+	    var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+	    var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+	    var diff = endDate.getTime() - startDate.getTime();
+	    var hours = Math.floor(diff / 1000 / 60 / 60);
+	    diff -= hours * 1000 * 60 * 60;
+	    var minutes = Math.floor(diff / 1000 / 60);
+	    var seconds = Math.floor(diff / 1000);
+	    
+		document.getElementById("diff").value=(hours < 9 ? "0" : "") + hours + "h:" + (minutes < 9 ? "0" : "") + minutes+"m";
+	}
+
+	function clearDiff(){
+		document.getElementById("diff").value="";		
+	}
+	
+	function clearIcon(){
+		document.getElementById("diff").value="";
+		document.getElementById("startTime").value="";		
+		document.getElementById("endTime").value="";		
+		
+	}
+//////////////// Time Difference END //////////////////////////  
+
+/////////////// Submit Data to logForm START ///////////////
+
+
+	function collectData(){
+		var logdate=$("#theDate").html();
+		$("#logDate").val(logdate);
+		
+		var logTimelapse=document.getElementById("diff").value;
+		$("#logTimelapse").val(logTimelapse);
+		
+		var logActivity = document.getElementById("myActivity").value;
+		$("#logActivity").val(logActivity);
+		
+		$("#logTimestop").val(timeDay);
+		
+		$("#submitData").click();
+	}
+
+
+/////////////// Submit Data to logForm END ///////////////
+
+
+
+
+ 
