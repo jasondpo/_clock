@@ -61,11 +61,13 @@ $(function(){
 	}
 	
 	
-	
 	function startMe(){
 	  clearTime();
 	  timer();
 	  clock();
+	  getDayTime();
+	  beginTime=timeDay;
+	  document.getElementById('beginTime').value=beginTime;
 	  document.getElementById('start').style.display='none';
 	  document.getElementById('stop').style.display='block';
 	}
@@ -226,7 +228,7 @@ function getMyTime(){
     var myAct = document.getElementById("myActivity").value;
     getDayTime();
     counter();
-	$("#timeLogColumn").prepend("<div id='logBox"+number+"' class='record' onclick='identify("+number+"); getID(this)'><h11>"+myAct+"</h11><br><h12>"+myTime +"</h12><br><h13>"+timeStamp+"<h13> | <span>"+timeDay+"</span></div>");
+	//$("#timeLogColumn").prepend("<div id='logBox"+number+"' class='record' onclick='identify("+number+"); getID(this)'><h11>"+myAct+"</h11><br><h12>"+myTime +"</h12><br><h13>"+timeStamp+"<h13> | <span>"+timeDay+"</span></div>");
 }
 
 

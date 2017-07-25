@@ -23,7 +23,7 @@ function createTables(){
 	    $sql ="DROP TABLE IF EXISTS user, userdata, activity";
 	      $result = $db->query($sql);
 	            If ( $result != true){
-	            	die("Unable to drop answers table");
+	            	die("Unable to drop user, userdata and activity tables");
 	            }
 	            else{
 	            	ECHO "<br>User, userdata and activity tables dropped<br>";                
@@ -54,6 +54,7 @@ function createTables(){
 	    ."timelapse VARCHAR(50) NOT NULL ,"
 	    ."date VARCHAR(50) NOT NULL ,"
 	    ."notes TEXT NOT NULL ,"
+	    ."timestart VARCHAR(50) NOT NULL ,"
 	    ."timestop VARCHAR(50) NOT NULL  );";
 	   
 	    
@@ -166,7 +167,7 @@ function registerUser(){
 
 if(isset($_POST["submitData"])){
         $db = openDB();
-            $sql ="INSERT INTO userdata (userid, useractivity, timelapse, date, notes, timestop)"
+            $sql ="INSERT INTO userdata (userid, useractivity, timelapse, date, notes, timestart, timestop)"
                       ." VALUES " 
                     ."( '"
                     .$_POST['logId']."','"
@@ -174,6 +175,7 @@ if(isset($_POST["submitData"])){
                     .$_POST['logTimelapse']."','"
                     .$_POST['logDate']."','"
                     .$_POST['logNotes']."','"
+                    .$_POST['beginTime']."','"
                     .$_POST['logTimestop']."' );"; 
             $result = $db->query($sql);
             if ( $result != true){
@@ -182,7 +184,7 @@ if(isset($_POST["submitData"])){
              exit();
             }
             else{
-                ECHO "<div class='alertBoxWrapper'><div class='alertBox'><h102>Log data saved</h102></div></div>";
+                //ECHO "<div class='alertBoxWrapper'><div class='alertBox'><h102>Log data saved</h102></div></div>";
             }
           // initSession();  
  
@@ -219,7 +221,7 @@ if(isset($_POST["addAct"])){
     $ds = $db->query($query);
      $cnt = $ds->rowCount();
     if ($cnt == 0){
-        echo "<span> No answers found </span>";
+        echo "<span> No activities found </span>";
         return; // No contacts 
     } 
     // Fill scroll area             
@@ -238,7 +240,7 @@ if(isset($_POST["addAct"])){
     $ds = $db->query($query);
      $cnt = $ds->rowCount();
     if ($cnt == 0){
-        echo "<span> No answers found </span>";
+        echo "<span> No activities found </span>";
         return; // No contacts 
     } 
     // Fill scroll area             
@@ -266,18 +268,18 @@ if(isset($_POST["deleteActButton"])){
 function displayData(){
     
     $db = openDB();               
-    $query = "SELECT id, useractivity, timelapse, date, timestop FROM userdata WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
+    $query = "SELECT id, useractivity, timelapse, date, timestart, timestop FROM userdata WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
     //$query = "SELECT id, useractivity, timelapse, date, notes, timestop FROM userdata WHERE userid='1' ORDER BY id DESC";
     $ds = $db->query($query);
      $cnt = $ds->rowCount();
     if ($cnt == 0){
-        echo "<span> No answers found </span>";
+        echo "<span> No data found </span>";
         return; // No contacts 
     } 
     // Fill scroll area             
 	$x=1;
     foreach ($ds as $row){
-        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'><div id='".$row["id"]."' class='deleteBtn'></div><h11>".$row["useractivity"]."</h11><br><h12>".$row["timelapse"]."</h12><br><h13>".$row["date"]."<h13> | <span>".$row["timestop"]."</span></div>";
+        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'><div id='".$row["id"]."' class='deleteBtn'></div><h11>".$row["useractivity"]."</h11><br><h12>".$row["timelapse"]."</h12><br><h13>".$row["date"]."<h13> | <span>".$row["timestart"]." - ".$row["timestop"]."</span></div>";
     }
 }
 
@@ -322,7 +324,7 @@ if ( isset($_POST["submitNote"])){
           ECHO "<div class='alertBoxWrapper'><div class='alertBox'><h102>Could not update notes data</h102></div></div>";
         }
         else{
-            ECHO "<div class='alertBoxWrapper'><div class='alertBox'><h102>Notes updated</h102></div></div>";
+            //ECHO "<div class='alertBoxWrapper'><div class='alertBox'><h102>Notes updated</h102></div></div>";
         }
 }
 	

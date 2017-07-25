@@ -26,7 +26,6 @@
 <body>
 
 
-
 <div id="timeLog" class="clearfix">
 	<div id="timeLogColumn">
 		<?php echo displayData(); ?>	

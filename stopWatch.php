@@ -26,7 +26,7 @@
 
 	
 	<body ng-app="stopWatchApp" ng-controller="mainCtrl">
-		
+
 	<div class="actualTime">	
 		<input id="startTime">
 		<br/>
@@ -49,6 +49,8 @@
 			<input type="text" id="logDate" name="logDate" value="logDate"/>
 		
 			<input type="text" id="logNotes" name="logNotes" value="logNotes"/>
+			
+			<input type="text" id="beginTime" name="beginTime" value="beginTime"/>
 			
 			<input type="text" id="logTimestop" name="logTimestop" value="logTimestop"/>
 			<br/>

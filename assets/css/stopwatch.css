@@ -83,7 +83,7 @@
 		
 		.submitData-wrapper{
 			width: 150px;
-			height: 150px;
+			height: 180px;
 			background-color: #fff;
 			position: absolute;
 			z-index: 5;
@@ -281,9 +281,9 @@
 		}
 		.record{
 			position: relative;
-			width: 200px;
+			width: 270px;
 			cursor: pointer;
-			padding: 14px;
+			padding: 24px 0px 14px 0px;
 			color: #333;
 			float: left;
 			border-bottom: 1px solid #DFDFDF;			
@@ -370,7 +370,7 @@
 		    flex-direction: column-reverse;			
     		z-index: 7;
 			top:80px;
-			width: 550px;
+			width: 630px;
 			padding: 60px 0px 20px 0px;
 			display: block;
 		}
@@ -380,7 +380,7 @@
 		    display: flex;
 		    -webkit-flex-direction: column-reverse;
 		    flex-direction: column-reverse;				
-    		width: 200px;
+    		width: 300px;
 			padding: 10px;
 			box-sizing:border-box;
 			display: block;
@@ -413,8 +413,8 @@
 			height: 18px;
 			background-color: #CCC;
 			border-radius: 20px;
-			top:4px;
-			right: 4px;
+			top:10px;
+			right: 10px;
 			cursor: pointer;
 			display: none;
 		}
