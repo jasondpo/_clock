@@ -33,7 +33,7 @@
 		<div id="notesWrapper">
 			
 		<form method="post" name="noteForm" id="noteForm" action="log.php" autocomplete='off'> 
-			<textarea id="notes"  name="newNote" onblur="if(this.value==''){ this.value='Write a note...'}" onfocus="if(this.value=='Write a note...'){ this.value=''}"> <?php echo $row['notes'];?></textarea>
+			<textarea id="notes"  name="newNote"> <?php echo $row['notes'];?></textarea>
 			<br>
 			<input type="text" id="saveNote" name="saveNote"/>
 			<input type="submit" class="saveBtn" name="submitNote" value="Submit">

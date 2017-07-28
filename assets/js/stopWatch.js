@@ -153,6 +153,7 @@ function counter(){
 	
 ///////////////////////////////////////////////////////////////////////
 
+/*
 var activityNotes = [
     'Write a note...',
     'Write a note...',
@@ -179,6 +180,7 @@ var activityNotes = [
     'Write a note...', 
     'Write a note...'     
 ];
+*/
 
 function getID(obj){
 	deselectRecord();
@@ -202,17 +204,19 @@ function identify(obj){
 	document.getElementById('notesWrapper').style.display="block";
 }
 
+/*
 function getNote(obj){
 	document.getElementById('notes').value=activityNotes[obj-1];
 	thisNote=obj-1; // this is the number of the array
 }
+*/
 
 function saveNote(){
 	//alert('I work'+thisNote)
-	message=document.getElementById('notes').value;
-	activityNotes[thisNote] = message;
-    document.getElementById("notes").innerHTML = message;
-    checkUpdate();
+	//message=document.getElementById('notes').value;
+	//activityNotes[thisNote] = message;
+    //document.getElementById("notes").innerHTML = message;
+   // checkUpdate();
 }
 function checkUpdate(){
 	noteVal=document.getElementById('notes').value;

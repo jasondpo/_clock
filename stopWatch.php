@@ -48,7 +48,7 @@
 			
 			<input type="text" id="logDate" name="logDate" value="logDate"/>
 		
-			<input type="text" id="logNotes" name="logNotes" value="logNotes"/>
+			<input type="text" id="logNotes" name="logNotes" value=""/>
 			
 			<input type="text" id="beginTime" name="beginTime" value="beginTime"/>
 			
@@ -143,7 +143,9 @@
 				<h10 id="log">Logs</h10>
 			</div>
 			
-			<iframe name="logframe" class="logframe" src="log.php"></iframe>  
+			<div class="logframeWrapper">
+				<iframe name="logframe" class="logframe" src="log.php"></iframe>  
+			</div>
 	
 		</div>
 	

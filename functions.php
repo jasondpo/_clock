@@ -268,7 +268,7 @@ if(isset($_POST["deleteActButton"])){
 function displayData(){
     
     $db = openDB();               
-    $query = "SELECT id, useractivity, timelapse, date, timestart, timestop FROM userdata WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
+    $query = "SELECT id, notes, useractivity, timelapse, date, timestart, timestop FROM userdata WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
     //$query = "SELECT id, useractivity, timelapse, date, notes, timestop FROM userdata WHERE userid='1' ORDER BY id DESC";
     $ds = $db->query($query);
      $cnt = $ds->rowCount();
@@ -279,7 +279,9 @@ function displayData(){
     // Fill scroll area             
 	$x=1;
     foreach ($ds as $row){
-        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'><div id='".$row["id"]."' class='deleteBtn'></div><h11>".$row["useractivity"]."</h11><br><h12>".$row["timelapse"]."</h12><br><h13>".$row["date"]."<h13> | <span>".$row["timestart"]." - ".$row["timestop"]."</span></div>";
+        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'><div id='".$row["id"]."' class='deleteBtn'>X</div>";
+        if(!empty($row['notes'])){echo "<div class='greenSave'></div>";};
+        echo "<h11>".$row["useractivity"]."</h11><br><h12>".$row["timelapse"]."</h12><br><h13>".$row["date"]."<h13> | <span>".$row["timestart"]." - ".$row["timestop"]."</span></div>";
     }
 }
 
