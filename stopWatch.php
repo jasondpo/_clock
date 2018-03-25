@@ -26,6 +26,8 @@
 
 	
 	<body ng-app="stopWatchApp" ng-controller="mainCtrl">
+		
+
 
 	<div class="actualTime">	
 		<input id="startTime">
@@ -136,22 +138,57 @@
 		<div id="theActivity" class="bkgBillboard">{{activity}}</div>
 		<div class="overlayBkg"></div>
 		
-
-		<div class="logDrawer" id="logDrawer" onclick="openDrawer()">
+<!------------ Log Drawer STARTS ------------>
+		<div class="logDrawer" id="logDrawer" >
 			
-			<div class="drawerBtn">
+			<div class="calcContainer">
+				<input id="time1" value="0:00" size="10"> <h10 class="reset1 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time2" value="0:00" size="10"> <h10 class="reset2 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time3" value="0:00" size="10"> <h10 class="reset3 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time4" value="0:00" size="10"> <h10 class="reset4 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time5" value="0:00" size="10"> <h10 class="reset5 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time6" value="0:00" size="10"> <h10 class="reset6 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time7" value="0:00" size="10"> <h10 class="reset7 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time8" value="0:00" size="10"> <h10 class="reset8 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time9" value="0:00" size="10"> <h10 class="reset9 timebox" onclick="resetTime(this)">clear</h10> <br>
+				<input id="time10" value="0:00" size="10"> <h10 class="reset10 timebox" onclick="resetTime(this)">clear</h10>
+				<br>
+				<br>
+				<button onclick="document.getElementById('timeSum').value = timeSummation('time1','time2','time3','time4','time5','time6','time7','time8','time9','time10')" class="totalbtn">Add times</button>
+				<br>
+				<br>
+				<input id="timeSum" value="" size="10" placeholder="Total"><br>
+			</div>
+			
+			<div class="drawerBtn" onclick="openDrawer()">
 				<h10 id="log">Logs</h10>
 			</div>
 			
 			<div class="logframeWrapper">
 				<iframe name="logframe" class="logframe" src="log.php"></iframe>  
 			</div>
+			
+			<div class="overlayArchive">
+				<div class="archiveDisplay">
+					<?php displayArchive();?>
+				</div>
+			</div>
+			
+		    <button class="viewArchiveBtn" id="viewArchiveBtn" name="viewArchiveBtn" >View Archive</button>
+		    
+
+			<form method="post" name="archiveForm" id="archiveForm" action="stopWatch.php" autocomplete='off'>
+				 &nbsp;&nbsp;
+				<input type="submit" class="archiveBtn" id="archiveBtn" name="archiveBtn" value="Archive">  
+			</form> 	
 	
 		</div>
-	
+<!------------ Log Drawer ENDS ------------>	
+
 		<!-- Custom jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 		<script src="assets/js/stopWatch.js"></script>
+		<script src="assets/js/stopWatchCalculator.js"></script>  
 	</body>
 	
 </html>

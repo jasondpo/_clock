@@ -31,6 +31,26 @@
 			background-repeat: no-repeat;
 			background-position: 76px -1px;
 		}
+		
+		.calcContainer h10{
+			display:inline-block;
+			width: 40px;
+			height: 20px;
+			text-align: center;
+			color: #EEE;
+			font-family: 'Roboto', sans-serif;
+			letter-spacing: .02em;
+			font-weight: 400;
+			font-size: 14px;
+			padding-top: 10px;
+			background-image: none;
+			background-repeat: no-repeat;
+			background-position: 76px -1px;
+			cursor: pointer;
+		}
+		.calcContainer h10:hover{
+			color: #333;
+		}		
 		h11{
 			color: #333;
 			font-family: 'Roboto', sans-serif;
@@ -123,6 +143,16 @@
 			background-color: rgba(0, 0, 0, 0.8);
 			z-index: 99991;
 			display:none;		
+		}
+		.overlayArchive{
+			position: fixed;
+			top:0px;
+			left:0px;
+			right: 0px;
+			bottom: 0px;
+			background-color: rgba(30, 30, 30, 0.8);
+			z-index: 99992;
+			display:none;				
 		}
 		.greetings{
 			position: absolute;
@@ -254,7 +284,7 @@
 		}
 		#timeLog{
 			font-family: 'Roboto', sans-serif;
-			color: #fff;
+			color: #333;
 		}
 		#start{
 			background-color: rgba(131, 206, 91, .8);			
@@ -301,10 +331,18 @@
 		.record:hover .deleteBtn{
 			display: block;
 		}
+		.record:hover .addBtn{
+			display: block;
+		}
 		.recordCheck{
 			background-image: url(../images/greenDot.png);	
 			background-repeat: no-repeat;
 			background-position: 210px; center;		
+		}
+		.totalbtn:hover{
+			cursor: pointer;
+			background-color: rgba(131, 206, 91, 1);
+			color: white;
 		}
 
 		.logDrawer{
@@ -345,6 +383,77 @@
 			border-radius: 4px;
 			color: #fff;
 			background-color: rgba(131, 206, 91, .8);			
+		}
+		.calcContainer{
+			position: absolute;
+			height: 420px;
+			background-color: #EEE;
+			left: 10px;
+			top:40px;
+			box-sizing: border-box;
+			padding: 20px;
+		}
+		.calcTimeBtn{
+		  position: absolute;
+			z-index: 99999;
+			bottom: 40px;
+			left: 40px;
+			border: 0px;
+			border: none;
+			height: 26px;
+			width: 100px;
+			background-color: #fff;
+			cursor:pointer;
+			float: left;
+			border-radius: 4px;
+			color: #fff;
+			background-color: rgba(131, 206, 91, .8);	
+		}
+		.archiveBtn{
+			position: absolute;
+			z-index: 100;
+			bottom: 40px;
+			right: 40px;
+			border: 0px;
+			border: none;
+			height: 26px;
+			width: 100px;
+			margin-top: 6px;
+			background-color: #fff;
+			cursor:pointer;
+			float: left;
+			border-radius: 4px;
+			color: #fff;
+			background-color: rgba(131, 206, 91, .8);			
+		}
+		.viewArchiveBtn{
+			position: absolute;
+			z-index: 99999;
+			bottom: 40px;
+			right: 160px;
+			border: 0px;
+			border: none;
+			height: 26px;
+			width: 100px;
+			background-color: #fff;
+			cursor:pointer;
+			float: left;
+			border-radius: 4px;
+			color: #fff;
+			background-color: rgba(131, 206, 91, .8);			
+		}
+		.archiveDisplay{
+			position: absolute;
+			z-index: 10;
+			width: 310px;
+			box-sizing: border-box;
+			padding: 0px 20px;
+			top: 40px;
+			left: 50%;
+			margin-left: -160px;
+			bottom: 40px;
+			overflow-x: hidden;
+			background-color: #fff;
 		}
 		.saveBtn:hover{
 			background-color: rgba(131, 206, 91, 1);			
@@ -432,7 +541,25 @@
 		}
 		.deleteBtn:hover{
 			color: #FF3791;		
+		}		
+		.addBtn{
+			position: absolute;
+			width: 14px;
+			height: 14px;
+			color: #CCC;
+			border-radius: 20px;
+			top:4px;
+			left: 0px;
+			cursor: pointer;
+			display: none;
+			text-align: center;
+			font-weight: 800;
 		}
+		.addBtn:hover{
+			color: #FF3791;		
+		}
+		
+		
 		#deleteForm, #saveNote{
 			display: none;
 		}

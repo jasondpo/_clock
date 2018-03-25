@@ -20,7 +20,7 @@ function openDB(){
 function createTables(){
     $db=openDB();
     		
-	    $sql ="DROP TABLE IF EXISTS user, userdata, activity";
+	    $sql ="DROP TABLE IF EXISTS user, userdata, activity, archived";
 	      $result = $db->query($sql);
 	            If ( $result != true){
 	            	die("Unable to drop user, userdata and activity tables");
@@ -39,7 +39,7 @@ function createTables(){
 	    
 		$result=$db->query($sql);
 	    if($result != true){
-	        die("<br>Unable to user questions table");
+	        die("<br>Unable to create user table");
 	   }
 	   else{
 	        ECHO "<br> User Table Created<br>";                
@@ -79,9 +79,29 @@ function createTables(){
 	   }
 	   else{
 	        ECHO "<br> Activity table created<br>";                
-	     }   
-            
-            	     
+	     } 
+	     
+///////// ARCHIVED TABLE ////////	     
+	     
+	    $sql="CREATE TABLE archived ("
+	    ."id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,"
+	    ."userid VARCHAR(50) NOT NULL ,"
+	    ."useractivity VARCHAR(50) NOT NULL ,"
+	    ."timelapse VARCHAR(50) NOT NULL ,"
+	    ."date VARCHAR(50) NOT NULL ,"
+	    ."notes TEXT NOT NULL ,"
+	    ."timestart VARCHAR(50) NOT NULL ,"
+	    ."timestop VARCHAR(50) NOT NULL  );";
+	   
+	    
+		$result=$db->query($sql);
+	    if($result != true){
+	        die("<br>Unable to create Archived table");
+	   }
+	   else{
+	        ECHO "<br> Archived table created<br>";                
+	     }	
+       	     
 	}
 
 	
@@ -217,7 +237,7 @@ if(isset($_POST["addAct"])){
  function displayList(){
     
     $db = openDB();               
-    $query = "SELECT theactivity FROM activity WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
+    $query = "SELECT theactivity FROM activity WHERE userid='".$_SESSION["userId"]."' ORDER BY theactivity ASC";
     $ds = $db->query($query);
      $cnt = $ds->rowCount();
     if ($cnt == 0){
@@ -238,7 +258,7 @@ if(isset($_POST["addAct"])){
     $db = openDB();               
     $query = "SELECT id, theactivity FROM activity WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
     $ds = $db->query($query);
-     $cnt = $ds->rowCount();
+    $cnt = $ds->rowCount();
     if ($cnt == 0){
         echo "<span> No activities found </span>";
         return; // No contacts 
@@ -249,7 +269,6 @@ if(isset($_POST["addAct"])){
         echo '<tr>   <td width="12%"> <input type="radio" value="'.$row["id"].'" name="actListItem"/></td>    <td width="88%">'.$row["theactivity"].'</td>     </tr>';
     }
 }  
-
 
 
     
@@ -279,7 +298,8 @@ function displayData(){
     // Fill scroll area             
 	$x=1;
     foreach ($ds as $row){
-        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'><div id='".$row["id"]."' class='deleteBtn'>X</div>";
+        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'>
+        	<div id='".$row["id"]."' class='deleteBtn'>X</div> <div id='add".$row["id"]."' class='addBtn' onclick='highlightBtn(this)'>+</div>";
         if(!empty($row['notes'])){echo "<div class='greenSave'></div>";};
         echo "<h11>".$row["useractivity"]."</h11><br><h12>".$row["timelapse"]."</h12><br><h13>".$row["date"]."<h13> | <span>".$row["timestart"]." - ".$row["timestop"]."</span></div>";
     }
@@ -328,6 +348,39 @@ if ( isset($_POST["submitNote"])){
         else{
             //ECHO "<div class='alertBoxWrapper'><div class='alertBox'><h102>Notes updated</h102></div></div>";
         }
+}
+
+/////////////////////////// Archive Data ///////////////////////////
+if ( isset($_POST["archiveBtn"])){
+	$db = openDB();
+	$query = "INSERT INTO archived SELECT * FROM userdata WHERE userid='".$_SESSION["userId"]."'; DELETE FROM userdata WHERE userid ='".$_SESSION["userId"]."'";
+	    $ds = $db->query($query);
+	     $cnt = $ds->rowCount();
+	    if ($cnt == 0){
+	        echo "<span> Could not archive data </span>";
+	        return; // No contacts 
+	    } else{
+             echo "<span> Data has been archived</span>";
+        }
+}
+/////////////////////////// Show Archive ///////////////////////////
+
+function displayArchive(){    
+    $db = openDB();               
+    $query = "SELECT id, notes, useractivity, timelapse, date, timestart, timestop FROM archived WHERE userid='".$_SESSION["userId"]."' ORDER BY id DESC";
+    $ds = $db->query($query);
+     $cnt = $ds->rowCount();
+    if ($cnt == 0){
+        echo "<span> No data found </span>";
+        return; // No contacts 
+    } 
+    // Fill scroll area             
+	$x=1;
+    foreach ($ds as $row){
+        echo "<div id='logBox-".$row["id"]."' class='record' onclick='identify(".$row["id"]."); getID(this)'><div id='".$row["id"]."' class='deleteBtn'>X</div>";
+        if(!empty($row['notes'])){echo "<div class='greenSave'></div>";};
+        echo "<h11>".$row["useractivity"]."</h11><br><h12>".$row["timelapse"]."</h12><br><h13>".$row["date"]."<h13> | <span>".$row["timestart"]." - ".$row["timestop"]."</span></div>";
+    }
 }
 	
 ?>

@@ -26,6 +26,7 @@
 <body>
 
 
+	
 <div id="timeLog" class="clearfix">
 	<div id="timeLogColumn">
 		<?php echo displayData(); ?>	
@@ -36,28 +37,28 @@
 			<textarea id="notes"  name="newNote"> <?php echo $row['notes'];?></textarea>
 			<br>
 			<input type="text" id="saveNote" name="saveNote"/>
-			<input type="submit" class="saveBtn" name="submitNote" value="Submit">
+			<input type="submit" class="saveBtn" name="submitNote" value="Save">
 		</form>
 	</div>
 </div>
 
-<form method="post" name="deleteForm" id="deleteForm" action="log.php" autocomplete='off'>
-								
+<form method="post" name="deleteForm" id="deleteForm" action="log.php" autocomplete='off'>					
 	<input type="text" id="deleteLog" name="deleteLog"/>
-	<input type="submit" id="deleteLogBtn" name="deleteLogBtn" value="submit">  
-					
+	<input type="submit" id="deleteLogBtn" name="deleteLogBtn" value="submit">  					
 </form> 
+
 
 
 <div class="noteStorageWrapper">
 	<?php displayNotes();?>
 </div>
 
+
 </body>
 
 
 <!-- Custom jQuery -->
 <script src="assets/js/stopWatch.js"></script>
-
+<script src="assets/js/stopWatchCalculator.js"></script>  
 
 
